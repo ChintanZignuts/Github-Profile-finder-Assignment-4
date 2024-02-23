@@ -1,8 +1,15 @@
 <script setup lang="ts">
 import { defineProps } from 'vue';
-
+interface UserProfile{
+  avatar_url:string,
+  name:string,
+  login:string,
+  created_at:string,
+  bio:string,
+  followers:number
+}
 const props=defineProps<{
-  profile:Object;
+  profile:UserProfile;
 }>()
 
 function extractYear(dateString: string): number {
@@ -16,7 +23,7 @@ function extractYear(dateString: string): number {
 <template>  
   <div class="ui card">
     <div class="image">
-      <img :src="profile.avatar_url">
+      <img :src="props.profile.avatar_url">
     </div>
     <div class="content">
       <a class="header">{{ profile.name? profile.name:profile.login }}</a>
