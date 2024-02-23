@@ -1,31 +1,37 @@
-<script setup lang="ts">
+<!-- component for input field  -->
 
-import { ref ,defineEmits} from 'vue';
-const emit=defineEmits(['finduser']);
-const username=ref("");
-const getuser=()=>{
-  emit('finduser',username.value);
+<script setup lang="ts">
+import { ref, defineEmits } from 'vue'
+
+const emit = defineEmits(['findUser'])
+const username = ref('')
+
+const getUser = () => {
+  emit('findUser', username.value)
 }
 </script>
 
 <template>
   <h1>Search Github Profile</h1>
-  <form action="" class="search-form" @submit.prevent="getuser">
+  <form action="" class="search-form" @submit.prevent="getUser">
     <div class="ui left icon input">
-      <input type="text" placeholder="Search GitHub users..." style="width: 50vw;" v-model="username"/>
+      <input type="text" placeholder="Search GitHub users..." v-model="username" />
       <i class="users icon"></i>
     </div>
     <button type="submit" class="ui secondary button">
-        <i class="search icon"></i>
+      <i class="search icon"></i>
     </button>
   </form>
 </template>
 
 <style scoped>
-.search-form{
-    width: 60%;
-    display: flex;
-    justify-content: space-between
+input {
+  width: 30vw;
+  height: 50px;
+  font-size: 1.2rem;
 }
-
+.search-form {
+  display: flex;
+  justify-content: center;
+}
 </style>
