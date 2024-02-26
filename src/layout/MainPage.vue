@@ -7,10 +7,10 @@ import InputUser from '../components/InputUser.vue'
 import ProfileCard from '../components/ProfileCard.vue'
 import axios from 'axios'
 import { toast } from 'vue3-toastify'
-import 'vue3-toastify/dist/index.css'
+
 //variables for error and save user data
 const ProfileData = ref(null)
-const errorMessage = ref('')
+const errorMessage = ref<string>('')
 
 //function for fetch user data from github api
 const getProfile = async (user: { name: string }) => {
@@ -19,38 +19,29 @@ const getProfile = async (user: { name: string }) => {
     const response = await axios.get(`https://api.github.com/users/${user}`)
     ProfileData.value = response.data
 
-    //this is for toast notification
-    toast('Success', {
-      theme: 'colored',
-      type: 'success',
-      hideProgressBar: true,
-      dangerouslyHTMLString: true,
-      autoClose: 1000
-    })
+    //function call
+    showNotification('Success', 'success')
   } catch (error: any) {
     if (error.response.status === 404) {
       errorMessage.value = 'user not found'
-
-      toast(errorMessage.value, {
-        theme: 'colored',
-        type: 'error',
-        hideProgressBar: true,
-        dangerouslyHTMLString: true,
-        autoClose: 1000
-      })
     } else {
       errorMessage.value = 'server side error'
-
-      toast(errorMessage.value, {
-        theme: 'colored',
-        type: 'error',
-        hideProgressBar: true,
-        dangerouslyHTMLString: true,
-        autoClose: 1000
-      })
     }
+    //function call
+    showNotification(errorMessage.value, 'error')
     ProfileData.value = null
   }
+}
+
+//function for show notification
+const showNotification = (message: string, type: 'success' | 'error'): void => {
+  toast(message, {
+    theme: 'colored',
+    type: type,
+    hideProgressBar: true,
+    dangerouslyHTMLString: true,
+    autoClose: 1000
+  })
 }
 </script>
 

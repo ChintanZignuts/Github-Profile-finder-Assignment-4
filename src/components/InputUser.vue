@@ -4,7 +4,7 @@
 import { ref, defineEmits } from 'vue'
 
 const emit = defineEmits(['findUser'])
-const username = ref('')
+const username = ref<string>('')
 
 const getUser = () => {
   emit('findUser', username.value)
